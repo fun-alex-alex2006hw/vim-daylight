@@ -101,5 +101,5 @@ function! Daylight()
     endif
 endfunction
 
-" call Daylight()
+call Daylight()
 " vim: set fdm=marker:
