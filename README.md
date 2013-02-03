@@ -11,11 +11,16 @@ I recommend using [Pathogen](https://github.com/tpope/vim-pathogen) or
 [Vundle](https://github.com/gmarik/vundle) to manage your plugins.
 
 * Pathogen:
-  git clone https://github.com/gmarik/vundle ~/.vim/bundle/vim-daylight
+      git clone https://github.com/gmarik/vundle ~/.vim/bundle/vim-daylight
 * Vundle
+
   Add the following to your .vimrc:
-    Bundle 'daf-/vim-daylight'
-  Then launch vim and run :BundleInstall
+
+      Bundle 'daf-/vim-daylight'
+
+  Then launch vim and run
+
+      :BundleInstall
 
 Settings
 --------
