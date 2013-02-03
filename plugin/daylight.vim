@@ -45,19 +45,19 @@ endif
 
 
 if !exists("g:daylight_late_hour")
-    let g:daylight_late_hour = 4
+    let g:daylight_late_hour = 22
 endif
 
 if !exists("g:daylight_morning_hour")
-    let g:daylight_morning_hour = 12
+    let g:daylight_morning_hour = 6
 endif
 
 if !exists("g:daylight_afternoon_hour")
-    let g:daylight_afternoon_hour = 18
+    let g:daylight_afternoon_hour = 12
 endif
 
 if !exists("g:daylight_evening_hour")
-    let g:daylight_evening_hour = 22
+    let g:daylight_evening_hour = 18
 endif
 " }}}
 
@@ -67,13 +67,13 @@ endif
 function! s:setTermColor()
     let l:time = strftime("%H")
 
-    if l:time ># g:daylight_evening_hour || l:time <# g:daylight_late_hour
+    if l:time ># g:daylight_late_hour || l:time <# g:daylight_morning_hour
         execute "colorscheme " . g:daylight_late_color_term
-    elseif l:time <# g:daylight_morning_hour
-        execute "colorscheme " . g:daylight_morning_color_term
     elseif l:time <# g:daylight_afternoon_hour
-        execute "colorscheme " . g:daylight_afternoon_color_term
+        execute "colorscheme " . g:daylight_morning_color_term
     elseif l:time <# g:daylight_evening_hour
+        execute "colorscheme " . g:daylight_afternoon_color_term
+    elseif l:time <# g:daylight_late_hour
         execute "colorscheme " . g:daylight_evening_color_term
     endif
 endfunction
@@ -81,13 +81,13 @@ endfunction
 function! s:setGvimColor()
     let l:time = strftime("%H")
 
-    if l:time ># g:daylight_evening_hour || l:time <# g:daylight_late_hour
+    if l:time ># g:daylight_late_hour || l:time <# g:daylight_morning_hour
         execute "colorscheme " . g:daylight_late_color_gvim
-    elseif l:time <# g:daylight_morning_hour
-        execute "colorscheme " . g:daylight_morning_color_gvim
     elseif l:time <# g:daylight_afternoon_hour
-        execute "colorscheme " . g:daylight_afternoon_color_gvim
+        execute "colorscheme " . g:daylight_morning_color_gvim
     elseif l:time <# g:daylight_evening_hour
+        execute "colorscheme " . g:daylight_afternoon_color_gvim
+    elseif l:time <# g:daylight_late_hour
         execute "colorscheme " . g:daylight_evening_color_gvim
     endif
 endfunction
