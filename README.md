@@ -54,6 +54,7 @@ By default, the values are defined as follows:
 
 TODO
 ----
-* Place the Daylight() function in a loop, which will re-check the time of day
-  every 5 or 10 minutes (or some arbitrary constant)
+* Place the Daylight() function in a threaded loop, which will re-check the
+  time of day every minute. This can't happen until vim functions are made
+  thread-safe.
 * Shorten variable names
