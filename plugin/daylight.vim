@@ -7,6 +7,10 @@ if !exists("*strftime")
     finish
 endif
 
+if !has("python")
+    echom "Error: Vim must be compiled with +python"
+endif
+
 " Global variables {{{
 if !exists("g:daylight_late_color_gvim")
     let g:daylight_late_color_gvim = "default"
@@ -64,42 +68,39 @@ endif
 " Helper functions {{{
 
 " Chooses colorscheme when g:daylight_term is set
-function! s:setTermColor()
-    let l:time = strftime("%H")
-
-    if l:time ># g:daylight_late_hour || l:time <# g:daylight_morning_hour
+function! s:setTermColor(time)
+    if a:time ># g:daylight_late_hour || a:time <# g:daylight_morning_hour
         execute "colorscheme " . g:daylight_late_color_term
-    elseif l:time <# g:daylight_afternoon_hour
+    elseif a:time <# g:daylight_afternoon_hour
         execute "colorscheme " . g:daylight_morning_color_term
-    elseif l:time <# g:daylight_evening_hour
+    elseif a:time <# g:daylight_evening_hour
         execute "colorscheme " . g:daylight_afternoon_color_term
-    elseif l:time <# g:daylight_late_hour
+    elseif a:time <# g:daylight_late_hour
         execute "colorscheme " . g:daylight_evening_color_term
     endif
 endfunction
 
-function! s:setGvimColor()
-    let l:time = strftime("%H")
-
-    if l:time ># g:daylight_late_hour || l:time <# g:daylight_morning_hour
+function! s:setGvimColor(time)
+    if a:time ># g:daylight_late_hour || a:time <# g:daylight_morning_hour
         execute "colorscheme " . g:daylight_late_color_gvim
-    elseif l:time <# g:daylight_afternoon_hour
+    elseif a:time <# g:daylight_afternoon_hour
         execute "colorscheme " . g:daylight_morning_color_gvim
-    elseif l:time <# g:daylight_evening_hour
+    elseif a:time <# g:daylight_evening_hour
         execute "colorscheme " . g:daylight_afternoon_color_gvim
-    elseif l:time <# g:daylight_late_hour
+    elseif a:time <# g:daylight_late_hour
         execute "colorscheme " . g:daylight_evening_color_gvim
     endif
 endfunction
 " }}}
 
 function! Daylight()
+    let l:time = strftime("%H")
+
     if has("gui_running")
-        call s:setGvimColor()
+        call s:setGvimColor(l:time)
     else
-        call s:setTermColor()
+        call s:setTermColor(l:time)
     endif
 endfunction
 
-call Daylight()
 " vim: set fdm=marker:

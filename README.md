@@ -12,15 +12,17 @@ I recommend using [Pathogen](https://github.com/tpope/vim-pathogen) or
 
 * Pathogen:
 
-        git clone https://github.com/gmarik/vundle ~/.vim/bundle/vim-daylight
+        $ git clone https://github.com/gmarik/vundle ~/.vim/bundle/vim-daylight
 
 * Vundle:
   Add the following to your .vimrc:
 
+        ```vim
         Bundle 'daf-/vim-daylight'
 
   Then launch vim and run
 
+        ```vim
         :BundleInstall
 
 Settings
@@ -29,6 +31,7 @@ For now, you need to specify four themes corresponding to the following times
 of day: morning, afternoon, evening, and late night for terminal and gvim
 accordingly. For example:
 
+    ```vim
     let g:daylight_morning_color_gvim = "Tomorrow"
     let g:daylight_afternoon_color_gvim = "solarized"
     let g:daylight_evening_color_gvim = "Tomorrow-Night"
@@ -42,10 +45,12 @@ accordingly. For example:
 You may also specify the starting times - the hours at which the morning,
 afternoon, evening, and late night phases each begin. For example:
 
+    ```vim
     let g:daylight_morning_hour = 8 " after 6am, the morning colorscheme is applied
 
 By default, the values are defined as follows:
 
+    ```vim
     let g:daylight_late_hour = 22
     let g:daylight_morning_hour = 6
     let g:daylight_afternoon_hour = 12
