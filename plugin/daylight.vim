@@ -102,4 +102,10 @@ function! Daylight()
     endif
 endfunction
 
+augroup ReloadDaylight
+    au!
+    " TODO: Make this comprehensive
+    au BufRead,BufWrite,BufEnter,BufNew,FocusGained,CursorHold,WinEnter call DayLight()
+augroup END
+
 " vim: set fdm=marker:
