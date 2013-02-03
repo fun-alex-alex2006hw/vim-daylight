@@ -67,7 +67,6 @@ endif
 
 " Helper functions {{{
 
-" Chooses colorscheme when g:daylight_term is set
 function! s:setTermColor(time)
     if a:time ># g:daylight_late_hour || a:time <# g:daylight_morning_hour
         execute "colorscheme " . g:daylight_late_color_term
