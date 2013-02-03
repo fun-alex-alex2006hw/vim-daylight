@@ -12,7 +12,7 @@ I recommend using [Pathogen](https://github.com/tpope/vim-pathogen) or
 
 * Pathogen:
 
-      git clone https://github.com/gmarik/vundle ~/.vim/bundle/vim-daylight
+        git clone https://github.com/gmarik/vundle ~/.vim/bundle/vim-daylight
 
 * Vundle:
 
