@@ -111,6 +111,4 @@ endfunction
     " " autocmd FocusGained,CursorHold,WinEnter * call Daylight()
 " augroup END
 
-call Daylight()
-
 " vim: set fdm=marker:
