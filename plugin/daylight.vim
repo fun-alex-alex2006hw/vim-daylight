@@ -102,6 +102,7 @@ function! Daylight()
     endif
 endfunction
 
+call Daylight()
 
 " TODO: Have Daylight reload under certain circumstances
 " augroup LoadDaylight
