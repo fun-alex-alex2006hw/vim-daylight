@@ -121,7 +121,7 @@ function! Daylight()
             execute "silent PowerlineReloadColorscheme"
         endif
 
-        let g:daylight_prev_window = l:window
+        let s:daylight_prev_window = l:window
     endif
 endfunction
 
