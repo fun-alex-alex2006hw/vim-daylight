@@ -40,7 +40,7 @@ accordingly. For example:
 You may also specify the starting times - the hours at which the morning,
 afternoon, evening, and late night phases each begin. For example:
 
-    let g:daylight_morning_hour = 8 " after 6am, the morning colorscheme is applied
+    let g:daylight_morning_hour = 8 " after 8am, the morning colorscheme is applied
 
 By default, the values are defined as follows:
 
