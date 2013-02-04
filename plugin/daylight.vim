@@ -1,6 +1,6 @@
 " Daylight.vim - Chooses your favorite colorschemes based on the time of day
 " Maintainer: Dan Friedman
-" Version: 1.0
+" Version: 0.1
 
 if !exists("*strftime")
     echom "Error: strftime() function required"
@@ -102,10 +102,15 @@ function! Daylight()
     endif
 endfunction
 
-augroup ReloadDaylight
-    au!
-    " TODO: Make this comprehensive
-    au BufRead,BufWrite,BufEnter,BufNew,FocusGained,CursorHold,WinEnter call DayLight()
-augroup END
+
+" TODO: Have Daylight reload under certain circumstances
+" augroup LoadDaylight
+    " autocmd!
+    " autocmd VimEnter * call Daylight()
+    " " autocmd BufEnter,BufWrite,BufNew * call Daylight()
+    " " autocmd FocusGained,CursorHold,WinEnter * call Daylight()
+" augroup END
+
+call Daylight()
 
 " vim: set fdm=marker:
