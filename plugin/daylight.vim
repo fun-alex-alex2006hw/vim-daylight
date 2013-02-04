@@ -1,17 +1,18 @@
 " Daylight.vim - Chooses your favorite colorschemes based on the time of day
 " Maintainer: Dan Friedman
-" Version: 0.1
+" Version: 0.2
 
 if !exists("*strftime")
     echom "Error: strftime() function required"
     finish
 endif
 
-if !has("python")
-    echom "Error: Vim must be compiled with +python"
+" Global variables {{{
+
+if !exists("g:daylight_prev_window")
+    let s:daylight_prev_window = ""
 endif
 
-" Global variables {{{
 if !exists("g:daylight_late_color_gvim")
     let g:daylight_late_color_gvim = "default"
 endif
@@ -45,7 +46,7 @@ endif
 if !exists("g:daylight_evening_color_term")
     let g:daylight_evening_color_term = "default"
 endif
- 
+
 
 
 if !exists("g:daylight_late_hour")
@@ -67,49 +68,68 @@ endif
 
 " Helper functions {{{
 
-function! s:setTermColor(time)
-    if a:time ># g:daylight_late_hour || a:time <# g:daylight_morning_hour
+function! s:setTermColor(window)
+    if a:window ==# "late"
         execute "colorscheme " . g:daylight_late_color_term
-    elseif a:time <# g:daylight_afternoon_hour
+    elseif a:window ==# "morning"
         execute "colorscheme " . g:daylight_morning_color_term
-    elseif a:time <# g:daylight_evening_hour
+    elseif a:window ==# "afternoon"
         execute "colorscheme " . g:daylight_afternoon_color_term
-    elseif a:time <# g:daylight_late_hour
+    else
         execute "colorscheme " . g:daylight_evening_color_term
     endif
 endfunction
 
-function! s:setGvimColor(time)
-    if a:time ># g:daylight_late_hour || a:time <# g:daylight_morning_hour
+function! s:setGvimColor(window)
+    if a:window ==# "late"
         execute "colorscheme " . g:daylight_late_color_gvim
-    elseif a:time <# g:daylight_afternoon_hour
+    elseif a:window ==# "morning"
         execute "colorscheme " . g:daylight_morning_color_gvim
-    elseif a:time <# g:daylight_evening_hour
+    elseif a:window ==# "afternoon"
         execute "colorscheme " . g:daylight_afternoon_color_gvim
-    elseif a:time <# g:daylight_late_hour
+    else
         execute "colorscheme " . g:daylight_evening_color_gvim
     endif
 endfunction
 " }}}
 
+" Re-sets the colorscheme if we've crossed over into a new window
 function! Daylight()
     let l:time = strftime("%H")
+    let l:window = ""
 
-    if has("gui_running")
-        call s:setGvimColor(l:time)
-    else
-        call s:setTermColor(l:time)
+    " Figure out the time window
+    if l:time ># g:daylight_late_hour || l:time <# g:daylight_morning_hour
+        let l:window = "late"
+    elseif l:time <# g:daylight_afternoon_hour
+        let l:window = "morning"
+    elseif l:time <# g:daylight_evening_hour
+        let l:window = "afternoon"
+    elseif l:time <# g:daylight_late_hour
+        let l:window = "evening"
+    endif
+
+    " Only set the color if we're in a new window
+    if l:window != s:daylight_prev_window
+        if has("gui_running")
+            call s:setGvimColor(l:window)
+        else
+            call s:setTermColor(l:window)
+        endif
+
+        if exists("g:Powerline_loaded")
+            execute "silent PowerlineReloadColorscheme"
+        endif
+
+        let g:daylight_prev_window = l:window
     endif
 endfunction
 
-call Daylight()
-
-" TODO: Have Daylight reload under certain circumstances
-" augroup LoadDaylight
-    " autocmd!
-    " autocmd VimEnter * call Daylight()
-    " " autocmd BufEnter,BufWrite,BufNew * call Daylight()
-    " " autocmd FocusGained,CursorHold,WinEnter * call Daylight()
-" augroup END
+" Call Daylight() when we open vim, and after some idle time
+augroup LoadDaylight
+    autocmd!
+    autocmd VimEnter * call Daylight()
+    autocmd CursorHold * call Daylight()
+augroup END
 
 " vim: set fdm=marker:

@@ -1,9 +1,7 @@
 vim-daylight
 ============
 
-Vim plugin to choose your colorscheme based on the time of day
-
-Still under development -- TODO below for project goals
+Vim plugin to change your colorscheme based on the time of day
 
 Installation
 ------------
@@ -50,11 +48,3 @@ By default, the values are defined as follows:
     let g:daylight_morning_hour = 6
     let g:daylight_afternoon_hour = 12
     let g:daylight_evening_hour = 18
-
-
-TODO
-----
-* Place the Daylight() function in a threaded loop, which will re-check the
-  time of day every minute. This can't happen until vim functions are made
-  thread-safe.
-* Shorten variable names
