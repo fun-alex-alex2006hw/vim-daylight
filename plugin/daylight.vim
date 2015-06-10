@@ -120,6 +120,10 @@ function! Daylight()
         if exists("g:Powerline_loaded")
             execute "silent PowerlineReloadColorscheme"
         endif
+        
+        if exists('g:loaded_airline') && g:loaded_airline
+            call airline#switch_matching_theme()
+        endif
 
         let s:daylight_prev_window = l:window
     endif
