@@ -99,13 +99,13 @@ function! Daylight()
     let l:window = ""
 
     " Figure out the time window
-    if l:time ># g:daylight_late_hour || l:time <# g:daylight_morning_hour
+    if l:time >= g:daylight_late_hour || l:time <= g:daylight_morning_hour
         let l:window = "late"
-    elseif l:time <# g:daylight_afternoon_hour
+    elseif l:time <= g:daylight_afternoon_hour
         let l:window = "morning"
-    elseif l:time <# g:daylight_evening_hour
+    elseif l:time <= g:daylight_evening_hour
         let l:window = "afternoon"
-    elseif l:time <# g:daylight_late_hour
+    elseif l:time <= g:daylight_late_hour
         let l:window = "evening"
     endif
 
